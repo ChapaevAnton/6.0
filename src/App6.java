@@ -9,6 +9,7 @@ public class App6 {
         alphabet.setA(5);
         alphabet.setS(7);
         alphabet.setD(7);
+        alphabet.setB(7);
         System.out.println(alphabet.getSum());
 
 

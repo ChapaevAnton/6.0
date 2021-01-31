@@ -1,21 +1,20 @@
-public class Calc implements Set{
+import java.util.ArrayList;
 
-    static protected int[] number;
-    static protected int count;
+public class Calc implements Sets {
 
-    protected Calc(){
-        number = new int[26];
-        count = 0;
+    static protected ArrayList<Integer> number;
+
+    protected Calc() {
+        number = new ArrayList<>();
     }
 
     private void set(int num) {
-        number[count] = num;
-        count++;
+        number.add(num);
     }
 
     protected int getSum() {
         int result = 0;
-        for (int num : number) {
+        for (Integer num : number) {
             result += num;
         }
         return result;
@@ -23,6 +22,10 @@ public class Calc implements Set{
 
     @Override
     public void setA(int num) {
+        set(num);
+    }
+    @Override
+    public void setB(int num) {
         set(num);
     }
 
