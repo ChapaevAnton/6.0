@@ -1,3 +1,5 @@
+package calc;
+
 public interface Sets {
 
     void setA(int num);

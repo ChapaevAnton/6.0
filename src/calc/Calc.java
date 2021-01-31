@@ -1,3 +1,5 @@
+package calc;
+
 import java.util.ArrayList;
 
 public class Calc implements Sets {
@@ -12,7 +14,7 @@ public class Calc implements Sets {
         number.add(num);
     }
 
-    protected int getSum() {
+    public int getSum() {
         int result = 0;
         for (Integer num : number) {
             result += num;
