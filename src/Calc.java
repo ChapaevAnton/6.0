@@ -3,6 +3,11 @@ public class Calc implements Set{
     static protected int[] number;
     static protected int count;
 
+    protected Calc(){
+        number = new int[26];
+        count = 0;
+    }
+
     private void set(int num) {
         number[count] = num;
         count++;
