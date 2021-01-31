@@ -12,6 +12,5 @@ public class App6 {
         alphabet.setB(7);
         System.out.println(alphabet.getSum());
 
-
     }
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Calc implements Sets {
 
-    static protected ArrayList<Integer> number;
+    static private ArrayList<Integer> number;
 
     protected Calc() {
         number = new ArrayList<>();
