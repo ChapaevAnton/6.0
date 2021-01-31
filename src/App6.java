@@ -1,7 +1,3 @@
-import calc.Calc;
-
-import java.util.Calendar;
-
 public class App6 {
 
     public static void main(String[] args) {
