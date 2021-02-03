@@ -14,6 +14,7 @@ public class Calc implements Sets {
         number.add(num);
     }
 
+    @Override
     public int getSum() {
         int result = 0;
         for (Integer num : number) {

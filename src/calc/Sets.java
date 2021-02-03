@@ -7,5 +7,6 @@ public interface Sets {
     void setW(int num);
     void setS(int num);
     void setD(int num);
+    int getSum();
 
 }
