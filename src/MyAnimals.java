@@ -1,6 +1,8 @@
 import java.util.Arrays;
 
+
 public class MyAnimals {
+
 
     private Object[] zoo;
 
@@ -14,7 +16,7 @@ public class MyAnimals {
 
     @Override
     public String toString() {
-        return "Zoo: "+Arrays.toString(zoo);
+        return "Zoo: " + Arrays.toString(zoo);
     }
 
     public void print() {
@@ -50,6 +52,15 @@ public class MyAnimals {
         System.out.println(animal3 instanceof Mammal);
 
 
+        //TODO down-casting
+
+        Mammal mammal = new Cat();
+        mammal.print();
+
+        Cat cat =(Cat) mammal;
+        cat.print();
+        cat.getVoice();
+
     }
 }
 
@@ -68,8 +79,11 @@ class Animal {
 
     @Override
     public String toString() {
+
         return "Животные";
     }
+
+
 }
 
 class Mammal extends Animal {
@@ -81,6 +95,7 @@ class Mammal extends Animal {
 
     @Override
     public String toString() {
+
         return "Млекопитающее";
     }
 }
@@ -96,6 +111,10 @@ class Cat extends Mammal {
     public String toString() {
         return "Я кошка";
     }
+
+    public void getVoice() {
+        System.out.println("МЯУ!!!!!!!!");
+    }
 }
 
 class Dog extends Mammal {
@@ -107,6 +126,10 @@ class Dog extends Mammal {
     @Override
     public String toString() {
         return "Я собака";
+    }
+
+    public void getVoice() {
+        System.out.println("ГАВ!!!!!!!!!!");
     }
 }
 
