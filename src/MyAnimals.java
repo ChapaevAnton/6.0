@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class MyAnimals {
 
-
+    //TODO 7.1
     private Object[] zoo;
 
     public MyAnimals() {
@@ -14,6 +14,7 @@ public class MyAnimals {
         }
     }
 
+    //TODO 7.1.1
     @Override
     public String toString() {
         return "Zoo: " + Arrays.toString(zoo);
@@ -22,7 +23,9 @@ public class MyAnimals {
     public void print() {
         for (Object animal : zoo) {
             System.out.println(animal);
-            ;
+            if (animal instanceof Animal) ((Animal) animal).getEat();
+            else if (animal instanceof PopCorn) System.out.println("Попкорн нельзя накормить");
+            else System.out.println("Незнаем что это...");
         }
     }
 
@@ -36,14 +39,15 @@ public class MyAnimals {
         myZoo.print();
         System.out.println(myZoo);
 
-        System.out.println("===================");
-        myZoo.replacementAnimal(new Reptile(), 2);
-        myZoo.replacementAnimal(new Animal(), 3);
+        System.out.println();
+
+        myZoo.replacementAnimal(new Dog(), 2);
+        myZoo.replacementAnimal(new Cat(), 3);
         myZoo.replacementAnimal(new PopCorn(), 0);
         myZoo.print();
 
         Animal animal2 = new Dog();
-        Animal animal3 = new Reptile();
+        Animal animal3 = new Cat();
 
         animal2.print();
         animal3.print();
@@ -57,7 +61,7 @@ public class MyAnimals {
         Mammal mammal = new Cat();
         mammal.print();
 
-        Cat cat =(Cat) mammal;
+        Cat cat = (Cat) mammal;
         cat.print();
         cat.getVoice();
 
@@ -71,7 +75,8 @@ class PopCorn {
     }
 }
 
-class Animal {
+//TODO 7.2.1 abstract class
+abstract class Animal {
 
     protected void print() {
         System.out.println(this);
@@ -83,10 +88,11 @@ class Animal {
         return "Животные";
     }
 
+    abstract protected void getEat();
 
 }
 
-class Mammal extends Animal {
+abstract class Mammal extends Animal {
 
     @Override
     protected void print() {
@@ -112,8 +118,15 @@ class Cat extends Mammal {
         return "Я кошка";
     }
 
+    @Override
+    protected void getEat() {
+        System.out.println("Ест как кошка");
+    }
+
     public void getVoice() {
         System.out.println("МЯУ!!!!!!!!");
+
+
     }
 }
 
@@ -131,9 +144,14 @@ class Dog extends Mammal {
     public void getVoice() {
         System.out.println("ГАВ!!!!!!!!!!");
     }
+
+    @Override
+    protected void getEat() {
+        System.out.println("Ест как собака");
+    }
 }
 
-class Reptile extends Animal {
+abstract class Reptile extends Animal {
     @Override
     public void print() {
         System.out.println(this);
@@ -143,5 +161,7 @@ class Reptile extends Animal {
     public String toString() {
         return "Рептилии";
     }
+
+    abstract protected void getEat();
 }
 
