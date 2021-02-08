@@ -77,6 +77,7 @@ public class Battle {
     }
 }
 
+//TODO class Monster
 abstract class Monster {
 
     private String name;
@@ -136,6 +137,7 @@ abstract class Monster {
     }
 }
 
+//TODO class GiantSnake
 class GiantSnake extends Monster {
 
     public static String scream = "Ssssss ";
@@ -183,6 +185,7 @@ class GiantSnake extends Monster {
 
 }
 
+//TODO class Zombie
 class Zombie extends Monster {
 
     public static String scream = "Raaaauuughhhh ";
