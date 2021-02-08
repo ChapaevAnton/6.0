@@ -8,8 +8,8 @@ public class Battle {
         //TODO 6.4.7
         Battle battle = new Battle();
         battle.add(new Zombie("Alice"));
+        battle.add(new Zombie("Maik"));
         battle.add(new Zombie("Bob"));
-        battle.add(new Zombie("Eve"));
         battle.add(new GiantSnake("Kaa"));
         battle.add(new GiantSnake("Son of Kaa"));
 
@@ -41,7 +41,7 @@ public class Battle {
     }
 
     //TODO 7.2.2
-    public void start(boolean turnCarnage){
+    public void start(boolean turnCarnage) {
         run(turnCarnage);
     }
 
@@ -64,16 +64,16 @@ public class Battle {
 
     private Monster[] shufflePool(Monster[] monsterPool) {
         Random random = new Random();
-
+        Monster[] versusMonsterPool = new Monster[monsterPool.length];
         for (int i = 0; i < monsterPool.length; i++) {
             int index = random.nextInt(monsterPool.length - 1);
-            Monster monster = monsterPool[index];
-            monsterPool[index] = monsterPool[i];
-            monsterPool[i] = monster;
+             Monster monster = monsterPool[index];
+             versusMonsterPool[i] = monster;
+             monsterPool[i] = versusMonsterPool[index];
         }
 
-        System.out.println(Arrays.toString(monsterPool));
-        return monsterPool;
+        System.out.println(Arrays.toString(versusMonsterPool));
+        return versusMonsterPool;
     }
 }
 
@@ -82,6 +82,7 @@ abstract class Monster {
     private String name;
     private int levelDamage;
     private int hp;
+    private boolean destroyed = false;
 
     public Monster(String name, int levelDamage, int hp) {
         this.name = name;
@@ -108,7 +109,7 @@ abstract class Monster {
     }
 
     public void attack() {
-        System.out.println("Monster " + name + " attacked with damage " + levelDamage);
+        System.out.println("\u2694 Monster " + name + " attacked with damage " + levelDamage);
     }
 
     //TODO 7.2.2
@@ -116,6 +117,8 @@ abstract class Monster {
 
     protected boolean damage(int levelDamage) {
         if (isDestroyed()) {
+            destroyed = true;
+            hp = 0;
             return true;
         } else {
             hp -= levelDamage;
@@ -124,12 +127,12 @@ abstract class Monster {
     }
 
     public boolean isDestroyed() {
-        return (hp <= 0);
+        return (hp <= 0 || hp <= levelDamage);
     }
 
     @Override
     public String toString() {
-        return name+", ";
+        return name + ", ";
     }
 }
 
@@ -169,11 +172,11 @@ class GiantSnake extends Monster {
     @Override
     public void attack(Monster monster) {
         this.attack();
-        System.out.println(" a monster" + monster.getNameMonster());
+        System.out.printf("\u2756 Monster %s \n", monster.getNameMonster());
         if (damage(this.getLevelDamage())) {
-            System.out.println(monster.getNameMonster() + "killed!!!");
+            System.out.printf("\u2620 %s killed!!! is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
         } else {
-            System.out.println("Remaining standard of living " + monster.getNameMonster() + " is " + monster.getLevelHP());
+            System.out.printf("\u2691 %s remaining life level is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
         }
 
     }
@@ -185,7 +188,7 @@ class Zombie extends Monster {
     public static String scream = "Raaaauuughhhh ";
 
     public Zombie(String name) {
-        super(name + " the Zombie", 5, 100);
+        super(name + " the Zombie", 10, 100);
     }
 
     @Override
@@ -205,19 +208,19 @@ class Zombie extends Monster {
 
     @Override
     public void attack() {
-        super.attack();
         growl();
+        super.attack();
     }
 
     //TODO 7.2.2
     @Override
     public void attack(Monster monster) {
         this.attack();
-        System.out.println(" a monster" + monster.getNameMonster());
+        System.out.printf("\u2756 Monster %s \n", monster.getNameMonster());
         if (damage(this.getLevelDamage())) {
-            System.out.println(monster.getNameMonster() + "killed!!!");
+            System.out.printf("\u2620 %s killed!!! is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
         } else {
-            System.out.println("Remaining standard of living " + monster.getNameMonster() + " is " + monster.getLevelHP());
+            System.out.printf("\u2691 %s remaining life level is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
         }
 
     }
