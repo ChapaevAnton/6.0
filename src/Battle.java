@@ -65,11 +65,11 @@ public class Battle {
     private Monster[] shufflePool(Monster[] monsterPool) {
         Random random = new Random();
         Monster[] versusMonsterPool = new Monster[monsterPool.length];
-        for (int i = 0; i < monsterPool.length; i++) {
-            int index = random.nextInt(monsterPool.length - 1);
+        for (int i = monsterPool.length-1; i >= 0; i--) {
+            int index = random.nextInt(i+1);
              Monster monster = monsterPool[index];
              versusMonsterPool[i] = monster;
-             monsterPool[i] = versusMonsterPool[index];
+             monsterPool[index] = versusMonsterPool[i];
         }
 
         System.out.println(Arrays.toString(versusMonsterPool));
@@ -132,7 +132,7 @@ abstract class Monster {
 
     @Override
     public String toString() {
-        return name + ", ";
+        return name;
     }
 }
 
@@ -141,7 +141,7 @@ class GiantSnake extends Monster {
     public static String scream = "Ssssss ";
 
     public GiantSnake(String name) {
-        super(name + " the GiantSnake", 10, 100);
+        super(name + " the GiantSnake", 25, 100);
     }
 
     @Override
@@ -188,7 +188,7 @@ class Zombie extends Monster {
     public static String scream = "Raaaauuughhhh ";
 
     public Zombie(String name) {
-        super(name + " the Zombie", 10, 100);
+        super(name + " the Zombie", 25, 100);
     }
 
     @Override
