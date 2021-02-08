@@ -1,7 +1,4 @@
-import calc.Calc;
 import calc.Sets;
-
-import java.util.Set;
 
 public class App6 {
 
@@ -17,23 +14,6 @@ public class App6 {
         alphabet.setD(7);
         alphabet.setB(10);
         System.out.println(alphabet.getSum());
-
-
-
-
-        //TODO 6.4.7
-//        Battle battle = new Battle();
-//        battle.add(new Zombie("Alice"));
-//        battle.add(new Zombie("Bob"));
-//        battle.add(new Zombie("Eve"));
-//        battle.add(new GiantSnake("Kaa"));
-//        battle.add(new GiantSnake("Son of Kaa"));
-//
-//        battle.add(new Zombie("Noname"));
-//        battle.add(new GiantSnake("Noname"));
-//
-//        battle.start();
-
 
     }
 }
