@@ -65,11 +65,11 @@ public class Battle {
     private Monster[] shufflePool(Monster[] monsterPool) {
         Random random = new Random();
         Monster[] versusMonsterPool = new Monster[monsterPool.length];
-        for (int i = monsterPool.length-1; i >= 0; i--) {
-            int index = random.nextInt(i+1);
-             Monster monster = monsterPool[index];
-             versusMonsterPool[i] = monster;
-             monsterPool[index] = versusMonsterPool[i];
+        for (int i = monsterPool.length - 1; i >= 0; i--) {
+            int index = random.nextInt(i + 1);
+            Monster monster = monsterPool[index];
+            versusMonsterPool[i] = monster;
+            monsterPool[index] = versusMonsterPool[i];
         }
 
         System.out.println(Arrays.toString(versusMonsterPool));
@@ -120,11 +120,10 @@ abstract class Monster {
         if (isDestroyed()) {
             destroyed = true;
             hp = 0;
-            return true;
         } else {
             hp -= levelDamage;
-            return false;
         }
+        return destroyed;
     }
 
     public boolean isDestroyed() {
