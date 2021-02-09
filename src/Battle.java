@@ -86,6 +86,11 @@ abstract class Entity {
     protected boolean destroyed = false;
     protected int hp;
 
+    public Entity(String name, int hp) {
+        this.name = name;
+        this.hp = hp;
+    }
+
     protected abstract boolean damage(int levelDamage);
 
     protected abstract boolean isDestroyed();
@@ -101,9 +106,8 @@ class Monster extends Entity implements Fighter, Sounds {
     protected String scream;
 
     public Monster(String name, int levelDamage, int hp, String scream) {
-        this.name = name;
+        super(name,hp);
         this.levelDamage = levelDamage;
-        this.hp = hp;
         this.scream = scream;
         System.out.println("Monster " + name + " was created");
     }
