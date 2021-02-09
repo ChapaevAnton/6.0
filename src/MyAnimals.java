@@ -23,9 +23,14 @@ public class MyAnimals {
     public void print() {
         for (Object animal : zoo) {
             System.out.println(animal);
+
             if (animal instanceof Animal) ((Animal) animal).getEat();
             else if (animal instanceof PopCorn) System.out.println("Попкорн нельзя накормить");
             else System.out.println("Незнаем что это...");
+
+            if (animal instanceof Voices) ((Voices) animal).getVoice();
+            else System.out.println("Незнаем что это...");
+
         }
     }
 
@@ -55,28 +60,72 @@ public class MyAnimals {
         System.out.println(animal2 instanceof Dog);
         System.out.println(animal3 instanceof Mammal);
 
+        PopCorn popCorn = new PopCorn();
+        popCorn.getLocations();
+        popCorn.setLocations();
+
+        Voices.getInfo();
+
 
         //TODO down-casting
 
-        Mammal mammal = new Cat();
-        mammal.print();
-
-        Cat cat = (Cat) mammal;
-        cat.print();
-        cat.getVoice();
+//        Mammal mammal = new Cat();
+//        mammal.print();
+//
+//        Cat cat = (Cat) mammal;
+//        cat.print();
+//        cat.getVoice();
 
     }
 }
 
-class PopCorn {
+interface Voices {
+    void getVoice();
+
+    static void getInfo() {
+        System.out.println(Voices.class.toString());
+        NestedClass nestedClass = new NestedClass();
+        nestedClass.getNestedClass();
+        NestedClass.getNestedClassStatic();
+    }
+
+    default void getLocations() {
+        int x = 1;
+        System.out.println("Default method " + x);
+        
+    }
+
+    default void setLocations() {
+        int y = 2;
+        System.out.println("Default method " + y);
+    }
+
+    class NestedClass {
+        void getNestedClass() {
+            System.out.println("NestedClass");
+        }
+
+        static void getNestedClassStatic(){
+            System.out.println("NestedClassStatic");
+        }
+    }
+}
+
+class PopCorn implements Voices {
     @Override
     public String toString() {
         return "Ларек с попкорном...";
+    }
+
+    @Override
+    public void getVoice() {
+        System.out.println("clap!!! clap!!!");
     }
 }
 
 //TODO 7.2.1 abstract class
 abstract class Animal {
+
 
     protected void print() {
         System.out.println(this);
@@ -106,7 +155,7 @@ abstract class Mammal extends Animal {
     }
 }
 
-class Cat extends Mammal {
+class Cat extends Mammal implements Voices {
 
     @Override
     public void print() {
@@ -123,14 +172,14 @@ class Cat extends Mammal {
         System.out.println("Ест как кошка");
     }
 
+    @Override
     public void getVoice() {
         System.out.println("МЯУ!!!!!!!!");
-
 
     }
 }
 
-class Dog extends Mammal {
+class Dog extends Mammal implements Voices {
     @Override
     public void print() {
         System.out.println(this);
