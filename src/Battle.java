@@ -14,7 +14,7 @@ public class Battle {
         battle.add(new GiantSnake("Son of Kaa"));
 
 
-        battle.start(true);
+        battle.start();
 
 
     }
@@ -40,26 +40,13 @@ public class Battle {
         run();
     }
 
-    //TODO 7.2.2
-    public void start(boolean turnCarnage) {
-        run(turnCarnage);
-    }
-
     private void run() {
-        for (Monster monster : monsterPool) {
 
-            if (monster != null) monster.attack();
+        Monster[] versusMonsterPool = shufflePool(monsterPool);
+        for (int i = 0; i < monsterPool.length; i++) {
+            if (monsterPool[i] != null && versusMonsterPool[i] != null) monsterPool[i].attack(versusMonsterPool[i]);
         }
-    }
 
-    private void run(boolean turnCarnage) {
-
-        if (turnCarnage) {
-            Monster[] versusMonsterPool = shufflePool(monsterPool);
-            for (int i = 0; i < monsterPool.length; i++) {
-                if (monsterPool[i] != null && versusMonsterPool[i] != null) monsterPool[i].attack(versusMonsterPool[i]);
-            }
-        } else run();
     }
 
     private Monster[] shufflePool(Monster[] monsterPool) {
@@ -77,45 +64,67 @@ public class Battle {
     }
 }
 
+//TODO 7.3.2
+interface Fighter {
+
+    void attack(Monster monster);
+
+}
+
+interface Sounds {
+    void growl();
+
+    void growl(boolean loud);
+
+}
+
+
+//TODO class Entity
+abstract class Entity {
+
+    protected String name;
+    protected boolean destroyed = false;
+    protected int hp;
+
+    protected abstract boolean damage(int levelDamage);
+
+    protected abstract boolean isDestroyed();
+
+
+}
+
+
 //TODO class Monster
-abstract class Monster {
+class Monster extends Entity implements Fighter, Sounds {
 
-    private String name;
-    private int levelDamage;
-    private int hp;
-    private boolean destroyed = false;
+    protected int levelDamage;
+    protected String scream;
 
-    public Monster(String name, int levelDamage, int hp) {
+    public Monster(String name, int levelDamage, int hp, String scream) {
         this.name = name;
         this.levelDamage = levelDamage;
         this.hp = hp;
+        this.scream = scream;
         System.out.println("Monster " + name + " was created");
     }
 
-    public void growl() {
-        System.out.println(name + " growled ");
-    }
-
     //TODO 7.2.2
-    public int getLevelDamage() {
+    protected int getLevelDamage() {
         return levelDamage;
     }
 
-    public int getLevelHP() {
+    protected int getLevelHP() {
         return hp;
     }
 
-    public String getNameMonster() {
+    protected String getNameMonster() {
         return name;
     }
 
-    public void attack() {
-        System.out.println("\u2694 Monster " + name + " attacked with damage " + levelDamage);
-    }
-
     //TODO 7.2.2
-    abstract public void attack(Monster monster);
 
+
+    @Override
     protected boolean damage(int levelDamage) {
         if (isDestroyed()) {
             destroyed = true;
@@ -126,7 +135,7 @@ abstract class Monster {
         return destroyed;
     }
 
-    public boolean isDestroyed() {
+    protected boolean isDestroyed() {
         return (hp <= 0 || hp <= levelDamage);
     }
 
@@ -134,46 +143,26 @@ abstract class Monster {
     public String toString() {
         return name;
     }
-}
-
-//TODO class GiantSnake
-class GiantSnake extends Monster {
-
-    public static String scream = "Ssssss ";
-
-    public GiantSnake(String name) {
-        super(name + " the GiantSnake", 25, 100);
-    }
 
     @Override
     public void growl() {
         System.out.print(scream);
-        super.growl();
     }
 
+    @Override
     public void growl(boolean loud) {
-        if (!loud) {
-            growl();
-        } else {
+        if (loud) {
             System.out.print(scream.toUpperCase());
-            super.growl();
         }
 
-
     }
 
-    @Override
-    public void attack() {
-        growl(true);
-        super.attack();
-        System.out.println("     ...and hid in the grass");
-    }
-
-    //TODO 7.2.2
     @Override
     public void attack(Monster monster) {
-        this.attack();
-        System.out.printf("\u2756 Monster %s \n", monster.getNameMonster());
+        this.growl(true);
+        System.out.printf("\n\u2694 Monster %s attacked with damage %d \n\u2756 Monster %s defends\n",
+                this.getNameMonster(), this.getLevelDamage(), monster.getNameMonster());
+
         if (damage(this.getLevelDamage())) {
             System.out.printf("\u2620 %s killed!!! is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
         } else {
@@ -181,50 +170,25 @@ class GiantSnake extends Monster {
         }
 
     }
+
+}
+
+//TODO class GiantSnake
+class GiantSnake extends Monster {
+
+
+    public GiantSnake(String name) {
+        super(name + " the GiantSnake", 25, 100, "Ssssss ");
+    }
+
 
 }
 
 //TODO class Zombie
 class Zombie extends Monster {
 
-    public static String scream = "Raaaauuughhhh ";
-
     public Zombie(String name) {
-        super(name + " the Zombie", 25, 100);
-    }
-
-    @Override
-    public void growl() {
-        System.out.print(scream);
-        super.growl();
-    }
-
-    public void growl(boolean loud) {
-        if (!loud) {
-            growl();
-        } else {
-            System.out.print(scream.toUpperCase());
-            super.growl();
-        }
-    }
-
-    @Override
-    public void attack() {
-        growl();
-        super.attack();
-    }
-
-    //TODO 7.2.2
-    @Override
-    public void attack(Monster monster) {
-        this.attack();
-        System.out.printf("\u2756 Monster %s \n", monster.getNameMonster());
-        if (damage(this.getLevelDamage())) {
-            System.out.printf("\u2620 %s killed!!! is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
-        } else {
-            System.out.printf("\u2691 %s remaining life level is \u2764 %d health unit \n", monster.getNameMonster(), monster.getLevelHP());
-        }
-
+        super(name + " the Zombie", 25, 100, "Raaaauuughhhh ");
     }
 
 }

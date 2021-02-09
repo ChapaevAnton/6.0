@@ -92,7 +92,7 @@ interface Voices {
     default void getLocations() {
         int x = 1;
         System.out.println("Default method " + x);
-        
+
     }
 
     default void setLocations() {
