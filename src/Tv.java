@@ -81,6 +81,7 @@ public class Tv {
         tvRemote.powerOff();
         System.out.println(myTv);
 
+
         //TODO Пульт без конкретного телека, просто им щелкаем...
 
         Remote tvRemote1 = new MyTv("Samsung", "2021АК47").getTvRemote();
