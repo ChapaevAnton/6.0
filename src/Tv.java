@@ -1,5 +1,11 @@
-import java.text.Format;
-import java.util.Formatter;
+interface Remote {
+    void setChannel(int channel);
+
+    void powerOn();
+
+    void powerOff();
+
+}
 
 class MyTv {
 
@@ -22,23 +28,23 @@ class MyTv {
         return MyTv.this;
     }
 
-    class TvRemote {
+    private class TvRemote implements Remote {
 
-        void setChannel(int channel) {
+        public void setChannel(int channel) {
             getTv().channel = channel;
         }
 
-        void powerOn() {
+        public void powerOn() {
             getTv().isOn = true;
         }
 
-        void powerOff() {
+        public void powerOff() {
             getTv().isOn = false;
         }
 
         @Override
         public String toString() {
-            return String.format("Which TV remote control %s %s",getTv().nameTv,getTv().modelTv);
+            return String.format("Which TV remote control %s %s", getTv().nameTv, getTv().modelTv);
         }
     }
 
@@ -61,8 +67,12 @@ class MyTv {
 public class Tv {
     public static void main(String[] args) {
 
-        MyTv myTv = new MyTv("Samsung","2021АК47");
-        MyTv.TvRemote tvRemote = myTv.getTvRemote();
+        MyTv myTv = new MyTv("Samsung", "2021АК47");
+
+        Remote tvRemote = myTv.getTvRemote();
+
+        //TODO Инкапсуляция
+        //MyTv.TvRemote tvRemote2 = myTv.new TvRemote();
 
         System.out.println(myTv);
         tvRemote.powerOn();
@@ -73,12 +83,10 @@ public class Tv {
 
         //TODO Пульт без конкретного телека, просто им щелкаем...
 
-        MyTv.TvRemote tvRemote1 = new MyTv("Samsung","2021АК47").getTvRemote();
+        Remote tvRemote1 = new MyTv("Samsung", "2021АК47").getTvRemote();
         tvRemote1.setChannel(2);
         tvRemote1.powerOn();
         System.out.println(tvRemote1);
-
-
 
 
     }
