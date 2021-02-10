@@ -43,6 +43,7 @@ public class Battle {
     private void run() {
 
         Monster[] versusMonsterPool = shufflePool(monsterPool);
+
         for (int i = 0; i < monsterPool.length; i++) {
             if (monsterPool[i] != null && versusMonsterPool[i] != null) monsterPool[i].attack(versusMonsterPool[i]);
         }
@@ -51,7 +52,7 @@ public class Battle {
 
     private Monster[] shufflePool(Monster[] monsterPool) {
         Random random = new Random();
-        Monster[] versusMonsterPool = new Monster[monsterPool.length];
+        Monster[] versusMonsterPool = Arrays.copyOf(monsterPool,monsterPool.length);
         for (int i = monsterPool.length - 1; i >= 0; i--) {
             int index = random.nextInt(i + 1);
             Monster monster = monsterPool[index];
