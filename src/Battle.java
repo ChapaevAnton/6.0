@@ -77,6 +77,12 @@ interface Sounds {
 
     void growl(boolean loud);
 
+    //TODO Object methods no implementation
+    int hashCode();
+    String toString();
+    boolean equals(Object obj);
+
+
 }
 
 
