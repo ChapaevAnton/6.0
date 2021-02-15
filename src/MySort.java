@@ -78,7 +78,7 @@ class MotherBoard {
 class MyJFrame2 extends JFrame {
     public MyJFrame2() {
         setTitle("name");
-        setSize(300, 300);
+        setSize(150, 150);
         setLocationRelativeTo(null);
         setVisible(true);
         addMouseListener(new MouseAdapter() {
